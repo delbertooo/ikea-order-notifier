@@ -3,6 +3,7 @@ describe('IKEA', () => {
         cy.on('uncaught:exception', (err, runnable) => false) // we don't care about errors
         cy.visit('https://www.ikea.com/de/de/profile/login/')
         cy.contains('Jetzt registrieren')
+        cy.wait(250) // trying to fix detached errors on headless
 
         cy.get('#username').type(Cypress.env('IKEA_LOGIN'))
         cy.get('#password').type(Cypress.env('IKEA_PASSWORD'))
