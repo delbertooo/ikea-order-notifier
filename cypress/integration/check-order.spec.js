@@ -2,6 +2,7 @@ describe('IKEA', () => {
     it('cart cannot be ordered', () => {
         cy.on('uncaught:exception', (err, runnable) => false) // we don't care about errors
         cy.visit('https://www.ikea.com/de/de/profile/login/')
+        cy.contains('Jetzt registrieren')
 
         cy.get('#username').type(Cypress.env('IKEA_LOGIN'))
         cy.get('#password').type(Cypress.env('IKEA_PASSWORD'))
