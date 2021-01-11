@@ -10,7 +10,7 @@ function orderList() {
 
     cy.contains('Online kaufen').click()
 
-    cy.get('.summary [data-cy-id="move-all-to-cart"]').click()
+    cy.get('.summary [data-cy-id="addAll-to-cart"]').click()
 
 }
 
