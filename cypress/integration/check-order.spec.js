@@ -2,13 +2,7 @@ function orderList() {
 
     cy.visit('https://www.ikea.com/de/de/favourites/')
 
-    cy.get('[data-cy-id="open-list-menu"]').click()
-
-    cy.get('[data-cy-id="list-of-lists"]').contains('IKEAOrderNotifier').click()
-
-    cy.wait(1000)
-
-    cy.contains('Online kaufen').click()
+    cy.get('[data-testid="select-list-item"]').contains('IKEAOrderNotifier').click()
 
     cy.get('.summary [data-cy-id="addAll-to-cart"]').click()
 
@@ -43,11 +37,13 @@ describe('IKEA', () => {
         cy.visit('https://www.ikea.com/de/de/shoppingcart/')
 
 
-        cy.contains('Warenwert zzgl. Liefer-/Servicekosten')
+        cy.contains('Zwischensumme')
 
-        cy.get('.checkout__button').click()
+        cy.get('[data-testid="checkoutButton__default"]').click()
+        
+        cy.wait(1000) // zip code may not be attached yet
 
-        cy.get('#zipcode').type(Cypress.env('IKEA_ZIPCODE'))
+        cy.get('[data-cy-id="zipcode_inputfield"]').type(Cypress.env('IKEA_ZIPCODE'), {force: true})
 
         cy.contains('Lieferoptionen anzeigen').click()
 
