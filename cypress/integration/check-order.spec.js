@@ -4,7 +4,7 @@ function orderList() {
 
     cy.get('[data-testid="select-list-item"]').contains('IKEAOrderNotifier').click()
 
-    cy.get('.summary [data-cy-id="addAll-to-cart"]').click()
+    cy.get('[data-testid="addToCart__default"]').click()
 
 }
 
@@ -12,12 +12,12 @@ describe('IKEA', () => {
     it('cart cannot be ordered', () => {
         cy.on('uncaught:exception', (err, runnable) => false) // we don't care about errors
         cy.visit('https://www.ikea.com/de/de/profile/login/')
-        cy.contains('Jetzt registrieren')
+        cy.contains('Jetzt erstellen')
         cy.wait(1000) // trying to fix detached errors on headless
 
         cy.get('#username').type(Cypress.env('IKEA_LOGIN'))
         cy.get('#password').type(Cypress.env('IKEA_PASSWORD'))
-        cy.get('[name=login]').click()
+        cy.get('button[type=submit]').contains('Weiter').click()
 
         cy.contains('Ausloggen', { timeout: 30000 })
 
@@ -28,7 +28,7 @@ describe('IKEA', () => {
 
         cy.visit('https://www.ikea.com/de/de/shoppingcart/')
 
-        cy.get(".shoppingbag__title-container .cart-ingka-svg-icon").click()
+        cy.get('[data-testid="context_menu"]').click()
 
         cy.contains('Warenkorb leeren').click()
 
